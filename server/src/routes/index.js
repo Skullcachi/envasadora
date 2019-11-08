@@ -25,7 +25,7 @@ router.post('/newOrder', async (req,res) => {
     await pool.query('INSERT INTO orders set ?', [order], (err, insertedOrder) => {
         if (!err)
         {
-            res.json({"code": 200});
+            res.json({"code": 200, "data": insertedOrder});
         }
         else
         {
