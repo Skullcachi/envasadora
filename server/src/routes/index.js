@@ -68,10 +68,10 @@ router.get('/getOrderStatus/:id', async (req,res) => {
 });
 
 router.get('/getFlavours', async (req,res) => {
-    await pool.query('SELECT * FROM flavours', (err, orders) => {
+    await pool.query('SELECT * FROM flavours', (err, flavours) => {
         if (!err)
         {
-            res.json({"code": 200, "data": orders});
+            res.json({"code": 200, "data": flavours});
         }
         else
         {
@@ -92,6 +92,33 @@ router.post('/newOrder', async (req,res) => {
         if (!err)
         {
             res.json({"code": 200, "data": insertedOrder});
+        }
+        else
+        {
+            console.log(err);
+            res.json({"code": 500});
+        }
+    });
+});
+router.post('/login', async (req,res) => {
+    console.log(req.body);
+    const { username, password } = req.body;
+    const user = {
+        username,
+        password 
+    };
+    await pool.query('SELECT username, userType FROM users WHERE username = ? AND password = ?', [user.username, user.password], (err, users) => {
+        if (!err)
+        {
+            if (users[0] == undefined)
+            {
+                res.json({"code": 200, "data": null});
+            }
+            else
+            {
+                console.log(users[0].username);
+                res.json({"code": 200, "data": users[0]});
+            }
         }
         else
         {
