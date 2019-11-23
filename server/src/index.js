@@ -11,7 +11,7 @@ app.set('port', process.env.PORT || 3000);
 
 //headers para CORS
 var originsWhitelist = [
-    'http://ec2-18-222-171-178.us-east-2.compute.amazonaws.com:3000'
+    'http://ec2-18-222-171-178.us-east-2.compute.amazonaws.com:4200'
      /* 'http://localhost:4200' */
 ];
 var corsOptions = {
